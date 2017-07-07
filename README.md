@@ -1,4 +1,4 @@
-# SistemaDePedidos
+# Sistema de pedidos
 
 Sistema que permite realizar pedidos a un determinado negocio. 
 El pedido puede ser realizado por un cliente o por un vendedor. 

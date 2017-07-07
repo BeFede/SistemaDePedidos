@@ -15,7 +15,7 @@
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pedidos<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Registrar</a></li>
+            <li><a href="<?php echo $WEB_PATH; ?>tmpl/registrar_pedidos.tmpl.php">Registrar</a></li>
             <li><a href="#">Consultar</a></li>
           </ul>
         </li>

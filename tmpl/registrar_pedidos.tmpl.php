@@ -38,40 +38,41 @@
               <div id="div-btn-sumar-articulo">
                 <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-articulos">Sumar artículos <i class="fa fa-plus"></i></button>
               </div>
-              <table class="table table-responsive">
+              <table class="table table-responsive table-striped" id="tabla-articulos-pedidos">
                 <thead>
                   <tr>
                     <td>Artículo</td>
-                    <td>Cantidad</td>
                     <td>Precio</td>
+                    <td>Cantidad</td>
                     <td>Parcial</td>
+                    <td>Acción</td>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>Galleta</td>
+                    <td>30</td>
                     <td>2</td>
                     <td>30</td>
-                    <td>30</td>
-                    <td><a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                    <td><a href="#"><i class="fa fa-trash-o borrar_fila" style="color: rgb(217,83,79)" aria-hidden="true"></i></a></td>
 
                   </tr>
                   <tr>
                     <td>Avena</td>
-                    <td>3,5</td>
                     <td>69</td>
+                    <td>3</td>
                     <td>99</td>
-                    <td><a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                    <td><a href="#"><i class="fa fa-trash-o borrar_fila" style="color: rgb(217,83,79)" aria-hidden="true"></i></a></td>
 
                   </tr>
 
                 </tbody>
               </table>
               <div id="div-monto-total">
-                <label>Total: </label>
+                <label>Total: $ 99.00</label>
               </div>
               <div class="row">
-                <input class="btn btn-primary btn-md btn-block" type="submit" value="Realizar pedido" style="margin-left: 2%; width: 96%;">
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Realizar pedido" style="margin-left: 2%; width: 96%;">
               </div>
 
 

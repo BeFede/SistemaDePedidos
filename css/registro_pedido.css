@@ -1,5 +1,6 @@
 thead {
   font-weight: bold;
+  color: rgb(66,139,202);
 }
 
 table {
@@ -13,7 +14,7 @@ tbody td {
 
 #div-monto-total {
   margin-left: 5%;
-  padding-right: 10%;
+  padding-right: 5%;
   width: 90%;
   padding-bottom: 2%;
   text-align: right;
@@ -51,8 +52,6 @@ table input {
   padding: 15%;
   cursor: pointer;
 }
-
-
 
 #input-filtro-articulo {
   margin-left: 4%;

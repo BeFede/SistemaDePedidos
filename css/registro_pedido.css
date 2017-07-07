@@ -65,3 +65,11 @@ table input {
   padding-bottom: 2%;
   border-bottom: 1px solid rgb(240,240,240);
 }
+
+.btn-trash{
+  color: rgb(217,83,79);
+}
+
+ table td {
+  text-align: center;
+}

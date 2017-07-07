@@ -5,6 +5,7 @@
  <html>
    <head>
      <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
      <title>Registrar pedido</title>
      <!--Se incluyen todas las librerías comunes-->
      <?php
@@ -13,6 +14,7 @@
      <link href="<?php echo $WEB_PATH;?>css/registro_pedido.css" rel="stylesheet">
      <script src="<?php echo $WEB_PATH; ?>js/tabla_articulos.js"></script>
      <script src="<?php echo $WEB_PATH; ?>js/registro_pedido.js"></script>
+     <script src="<?php echo $WEB_PATH; ?>js/articulo.js"></script>
 
 
     </head>
@@ -48,28 +50,10 @@
                     <td>Acción</td>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>Galleta</td>
-                    <td>30</td>
-                    <td>2</td>
-                    <td>30</td>
-                    <td><a href="#"><i class="fa fa-trash-o borrar_fila" style="color: rgb(217,83,79)" aria-hidden="true"></i></a></td>
-
-                  </tr>
-                  <tr>
-                    <td>Avena</td>
-                    <td>69</td>
-                    <td>3</td>
-                    <td>99</td>
-                    <td><a href="#"><i class="fa fa-trash-o borrar_fila" style="color: rgb(217,83,79)" aria-hidden="true"></i></a></td>
-
-                  </tr>
-
-                </tbody>
+                <tbody id="tabla-articulos-pedidos-cuerpo"><tbody>
               </table>
               <div id="div-monto-total">
-                <label>Total: $ 99.00</label>
+                Total: $<label id="lbl-monto-total">0.00</label>
               </div>
               <div class="row">
                 <input class="btn btn-primary btn-lg btn-block" type="submit" value="Realizar pedido" style="margin-left: 2%; width: 96%;">

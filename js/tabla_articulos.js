@@ -29,7 +29,7 @@ function crearCabecera(itemsCabecera){
   for (var i = 0; i < itemsCabecera.length; i++) {
     var td = document.createElement('td');
     var text = document.createTextNode(itemsCabecera[i]);
-    if (itemsCabecera[i] === 'Parcial') td.className ="hidden-xs";
+    if (itemsCabecera[i] === 'Stock') td.className ="hidden-xs";
     td.appendChild(text);
     tr.appendChild(td);
   }
@@ -44,17 +44,26 @@ function crearCuerpo(datos, tabla){
     $.each(datos, function(i, item) {
         var tr = document.createElement('tr');
         $.each(item, function(j, text) {
-
           var td = document.createElement('td');
           var text = document.createTextNode(text);
+          if (j === 'stock') td.className = "hidden-xs";
           td.appendChild(text);
           tr.appendChild(td);
+
         });
 
         var td_1 = document.createElement('td');
-        var texte = document.createTextNode("0.0");
-        td_1.className = "hidden-xs";
-        td_1.appendChild(texte);
+        var select = document.createElement('select');
+        select.className = "form-control select-bulto-unidad";
+        var op1 = document.createElement('option');
+        var op2 = document.createElement('option');
+        var txt1 = document.createTextNode('Bulto');
+        var txt2 = document.createTextNode('Unidad');
+        op1.appendChild(txt1);
+        op2.appendChild(txt2);
+        select.appendChild(op1);
+        select.appendChild(op2);
+        td_1.appendChild(select);
         tr.appendChild(td_1);
 
         var td_2 = document.createElement('td');

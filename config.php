@@ -35,7 +35,7 @@ if (basename($_SERVER['PHP_SELF']) === 'config.php') {
 define("modo_desarrollo", true);
 
 //Se muestran los errores si se está en desarrollo
-if(modo_desarroollo){
+if(modo_desarrollo){
 	ini_set("display_errors", 1);
 }
 else {
@@ -54,9 +54,9 @@ header('Cache-Control: post-check=0, pre-check=0', false);
 header('Pragma: no-cache');
 
 
-define($entorno_local, true);
+define("entorno_local", true);
 /*** Base de datos ***/
-if ($entorno_local){
+if (entorno_local){
 	$DB_HOST = 'localhost';
 	$DB_USER = 'root';
 	$DB_PASS = '';

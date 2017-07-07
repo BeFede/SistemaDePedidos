@@ -1,34 +1,68 @@
-#div-tabla-articulos{
-  margin-left: 2%;
-  margin-right: 3%;
-  margin-top: 3%;
-
-}
-
 thead {
   font-weight: bold;
 }
 
-tbody td {
-  width: 20%;
-}
-
-#div-tabla-articulos {
-  background-color: rgb(240, 240, 240);
-  padding: 2%;
-
-  border-radius: 5px;
-  margin-top: 5%;
-  margin-left: 2%;
-  margin-right: 2%;
+table {
   text-align: center;
 }
 
-#div-articulos-pedidos {
-  margin-top: 1%;
-  margin-bottom: 1%;
-  border-top: 1px solid black;
-  text-align: left;
-  padding-top: 4%;
-  padding-left: 8%;
+tbody td {
+  width: 20%;
+
+}
+
+#div-monto-total {
+  margin-left: 5%;
+  padding-right: 10%;
+  width: 90%;
+  padding-bottom: 2%;
+  text-align: right;
+}
+
+#div-articulos-pedidos{
+  text-align: center;
+}
+
+
+#form-filtros {
+  padding-left: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+form input {
+  border-radius: 2px;
+  border: 1px solid grey;
+}
+
+#div-btn-sumar-articulo {
+  float: right;
+  margin-top:1%;
+  margin-bottom:1%;
+}
+
+table input {
+  width: 40px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.btn-sumar-articulo{
+  padding: 15%;
+  cursor: pointer;
+}
+
+
+
+#input-filtro-articulo {
+  margin-left: 4%;
+  border: 1px solid rgb(240,240,240);
+  border-radius: 5px;
+  padding: 1%;
+  width: 30%;
+}
+
+#div-filtro {
+  padding-bottom: 2%;
+  border-bottom: 1px solid rgb(240,240,240);
 }

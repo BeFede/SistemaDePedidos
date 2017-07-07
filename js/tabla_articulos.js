@@ -29,6 +29,7 @@ function crearCabecera(itemsCabecera){
   for (var i = 0; i < itemsCabecera.length; i++) {
     var td = document.createElement('td');
     var text = document.createTextNode(itemsCabecera[i]);
+    if (itemsCabecera[i] === 'Parcial') td.className ="hidden-xs";
     td.appendChild(text);
     tr.appendChild(td);
   }
@@ -43,45 +44,42 @@ function crearCuerpo(datos, tabla){
     $.each(datos, function(i, item) {
         var tr = document.createElement('tr');
         $.each(item, function(j, text) {
-          if (text != ""){
+
           var td = document.createElement('td');
           var text = document.createTextNode(text);
           td.appendChild(text);
-          tr.appendChild(td);}
+          tr.appendChild(td);
         });
 
-        var tde = document.createElement('td');
+        var td_1 = document.createElement('td');
         var texte = document.createTextNode("0.0");
-        tde.className = "hidden-xs";
-        tde.appendChild(texte);
-        tr.appendChild(tde);
+        td_1.className = "hidden-xs";
+        td_1.appendChild(texte);
+        tr.appendChild(td_1);
 
-        var div = document.createElement('div');
-        div.className = "input-group ";
-        //var input = document.createElement('input');
-        //input.type = "text";
-        //input.className = 'input-pedir-articulo form-control';
+        var td_2 = document.createElement('td');
+        var input = document.createElement('input');
+        input.type = "text";
+        input.class = "form-control";
         //input.readOnly = "true";
-        //input.value = "0"
+        input.value = "0"
 
-        var i = document.createElement('i');
-        i.className = "fa fa-plus";
-        var btn = document.createElement('a');
-        btn.className = "btn btn-default input-group-addon btn-visualizar-producto";
-        btn.appendChild(i);
-        div.appendChild(input);
-        div.appendChild(btn);
+        td_2.appendChild(input);
+        tr.appendChild(td_2);
 
+        var td_3 = document.createElement('td');
         i = document.createElement('i');
         i.className = "fa fa-plus";
+        i.ariaHidden = "true";
         btn = document.createElement('a');
-        btn.className = "btn btn-default input-group-addon btn-sumar-producto";
+        btn.className = "btn-sumar-articulo";
         btn.appendChild(i);
-        div.appendChild(input);
-        div.appendChild(btn);
+        td_3.appendChild(btn);
 
-        tr.appendChild(div);
+        tr.appendChild(td_3);
+
         tbody.appendChild(tr);
+
     });
 
     return tbody;

@@ -2,11 +2,11 @@
 
 public class EstadoPedido {
 
-  $nombre;
-  $descripcion;
+  $_nombre;
+  $_descripcion;
 
   public function __constructor($nombre){
-    $this->nombre = $nombre;    
+    $this->_nombre = $nombre;    
   }
 
 }

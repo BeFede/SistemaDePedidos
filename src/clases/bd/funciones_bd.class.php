@@ -1,6 +1,8 @@
 <?php
 
+require_once $_SERVER["DOCUMENT_ROOT"] . "/SistemaDePedidos/config.php";
 require_once "conexion.class.php";
+
   /**
   * Clase conexion para bases de datos MySQL
   */

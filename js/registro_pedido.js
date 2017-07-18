@@ -1,12 +1,30 @@
 var montoTotal = parseFloat(0.0);
+var page_size = 2;
+var cabecera = ["Articulo", "Precio bulto", "Precio unidad", "Stock", "Empaque", "Cantidad"];
+var filtro_articulos = "";
 
 window.addEventListener('load', function(){
 
-  var cabecera = ["Articulo", "Precio bulto", "Precio unidad", "Stock", "Empaque", "Cantidad",""];
-  crearTabla(datos, cabecera, document.getElementById('div-tabla-articulos'));
+  obtenerArticulos(page_size,1);
+
+  $("body").on("click", ".page-link",function(){
+        var page_number = parseInt($(this).html());
+        obtenerArticulos(page_size, page_number);
+  });
+
 
   $("body").on("click", ".btn-trash",function(){
         removerFila($(this));
+  });
+
+  $("body").on("click", "#btn-vis-modal",function(){
+        filtro_articulos = "";
+  });
+
+
+  $("#modal-articulos").on("click","#btn-filtro-articulos", function(){
+    filtro_articulos = document.getElementById("input-filtro-articulo").value;
+    obtenerArticulos(page_size, 1)
   });
 
   $("#modal-articulos").on("click",".btn-sumar-articulo", function(){
@@ -80,6 +98,35 @@ function crearFilaTabla(datos){
 function actualizarTotal(monto){
   var divTotal = document.getElementById('lbl-monto-total').innerHTML = monto;
 }
+
+
+
+function obtenerArticulos(tamano_pagina, numero_pagina){
+
+  $.ajax({
+        url: "../src/ctrl/ajax/obtener_articulos.ajax.php",
+        data: {
+          'data': 'articulos',
+          'tamano_pagina':tamano_pagina,
+          'numero_pagina':numero_pagina,
+          'nombre_articulo':filtro_articulos
+        },
+      //  contentType: "application/json",
+        dataType: 'json',
+        type: 'POST',
+        success: function(json){
+                crearTabla(json.articulos, cabecera, document.getElementById('div-tabla-articulos'), json.paginas, json.pag_active);
+          //crearTabla(json.examenes, json.cantidad_paginas, numero_pagina);
+        },
+        error: function(xhr, status){
+          console.log("No se han podido obtener los artículos");
+          console.log(xhr);
+          console.log(status);
+        }
+    });
+
+}
+
 
 var datos = [
   {'nombre':'Pepas', 'precioBulto':'15,5', 'precioUnidad':'20','stock':'10'},

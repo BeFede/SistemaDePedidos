@@ -4,18 +4,21 @@
 * @head cabecera de la tabla
 * @content contenedor html en donde se creará la tabla
 */
-function crearTabla(data, head, content){
+function crearTabla(data, head, content, num_pag, pag_active){
 
-  var tabla = document.createElement('table');
-  tabla.className = "table table-responsive table-hover ";
+  $(content).empty();
+  if (data.length != undefined) {
+    var tabla = document.createElement('table');
+    tabla.className = "table table-responsive table-hover ";
 
-  var cabecera = crearCabecera(head);
-  tabla.appendChild(cabecera);
-  var cuerpo = crearCuerpo(data, tabla);
-  tabla.appendChild(cuerpo);
+    var cabecera = crearCabecera(head);
+    tabla.appendChild(cabecera);
+    var cuerpo = crearCuerpo(data, tabla);
+    tabla.appendChild(cuerpo);
 
-  content.appendChild(tabla)
-  content.appendChild(crearPaginacion(5));
+    content.appendChild(tabla)
+    content.appendChild(crearPaginacion(num_pag,pag_active));
+}
 }
 
 
@@ -41,15 +44,18 @@ function crearCabecera(itemsCabecera){
 
 function crearCuerpo(datos, tabla){
     var tbody = document.createElement('tbody');
+
     $.each(datos, function(i, item) {
         var tr = document.createElement('tr');
+        tr.id = datos[i];
         $.each(item, function(j, text) {
-          var td = document.createElement('td');
-          var text = document.createTextNode(text);
-          if (j === 'stock') td.className = "hidden-xs";
-          td.appendChild(text);
-          tr.appendChild(td);
-
+          if (j != 'id'){
+            var td = document.createElement('td');
+            var text = document.createTextNode(text);
+            if (j === 'stock') td.className = "hidden-xs";
+            td.appendChild(text);
+            tr.appendChild(td);
+          }
         });
 
         var td_1 = document.createElement('td');
@@ -95,8 +101,7 @@ function crearCuerpo(datos, tabla){
 }
 
 
-function crearPaginacion(cantPage){
-
+function crearPaginacion(cantPage, pagActiva){
   var div = document.createElement('div');
   div.style.textAlign = "center";
   var ul = document.createElement('ul');
@@ -105,6 +110,7 @@ function crearPaginacion(cantPage){
   for(var i = 0; i < parseInt(cantPage); i++){
     var li = document.createElement('li');
     li.className = "page-item";
+    if (pagActiva == (i+1)) li.className += " active";
     var a = document.createElement('a');
     a.className = "page-link";
     a.href = "#";

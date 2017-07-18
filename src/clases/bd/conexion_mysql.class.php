@@ -1,7 +1,6 @@
 <?php
 
 require_once $_SERVER["DOCUMENT_ROOT"] . "/SistemaDePedidos/config.php";
-require_once "conexion.class.php";
 
   /**
   * Clase conexion para bases de datos MySQL
@@ -57,16 +56,18 @@ class ConnectionDb{
     * @param array con los datos obtenidos
     */
     public function query($sentencia, $parametros = array()){
-      $db = Connection::get_connection();
+      $db = $this->get_connection();
       $sql = $this->replace($sentencia, $parametros);
-      $result_db = $db->query();
+      $result_db = $db->query($sql);
       if ($result_db == FALSE){
         throw new Exception("La sentencia: $sql tiene errores");
       }
       $result = $result_db->fetch_all(MYSQLI_ASSOC);
-      $Connection::close_connection($db);
+      $this->close_connection($db);
       return $result;
     }
+
+
 
     /**
     * Realiza una inserción en la base de datos
@@ -76,14 +77,14 @@ class ConnectionDb{
     * @return ultimo id ingresado
     */
     public function insert($sentencia, $paramentros){
-      $db = Connection::get_connection();
+      $db = $this->get_connection();
       $sql = $this->replace($sentencia, $parametros);
       $result_db = $db->query($sql);
       if ($result_db == FALSE){
         throw new Exception("La sentencia: $sql tiene errores");
       }
       $id = $db->insert_id;
-      Connection::close_connection($db);
+      $this->close_connection($db);
       return $id;
     }
 
@@ -95,14 +96,14 @@ class ConnectionDb{
     * @return cantidad de filas afectadas
     */
     public function update($sentencia, $paramentros){
-        $db = Connection::get_connection();
+        $db = $this->get_connection();
         $sql = $this->replace($sentencia, $parametros);
         $result_db = $db->query($sql);
         if ($result_db == FALSE){
           throw new Exception("La sentencia: $sql tiene errores");
         }
         $cant_rows = $db->affected_rows;
-        Connection::close_connection($db);
+        $this->close_connection($db);
         return $cant_rows;;
     }
 
@@ -110,7 +111,7 @@ class ConnectionDb{
     * Inicia una transacción desactivando el autocommit
     */
     public function begin_transaction(){
-      $this->_connection = Connection::get_connection;
+      $this->_connection = $this->get_connection;
       $this->_transaction = TRUE;
       $res = $this->_connection->begin_transaction();
       if (!$res){
@@ -125,7 +126,7 @@ class ConnectionDb{
     public function commit(){
       if ($this->_transaction){
         $this->_connection->commit();
-        Connection::close_connection($this->_connection);
+        $this->close_connection($this->_connection);
         $this->_transaction = FALSE;
       }
     }
@@ -136,7 +137,7 @@ class ConnectionDb{
     public function rollback(){
       if ($this->_transaction){
         $this->_connection->rollback();
-        Connection::close_connection($this->_connection);
+        $this->close_connection($this->_connection);
         $this->_transaction = FALSE;
       }
     }
@@ -220,6 +221,39 @@ class ConnectionDb{
         return $sanitize;
     }
 
+
+    /**
+    * Devuelve una conexión MySQL
+    * Si no se está en transacción se retorna una nueva conexión
+    * En caso contrario se retorna la conexión actual
+    */
+    public function get_connection(){
+      $con;
+      if ($this->_transaction){
+        $con = $this->_connection;
+      }
+      else {
+        $con = new mysqli($this->_host, $this->_user, $this->_password, $this->_data_base, $this->_port);
+        if ($con->connect_errno){
+          throw new Exception("Error al conectarse a la Base de Datos");
+        }
+        $con->set_charset($this->_charset);
+      }
+      return $con;
+    }
+
+
+    /**
+    * Cierra la conexion de la base de datos si no se está en transacción
+    */
+    public function close_connection($conexion){
+      if (!$this->_transaction){
+        $conexion->close();
+      }
+    }
+
+
 }
+
 
 ?>

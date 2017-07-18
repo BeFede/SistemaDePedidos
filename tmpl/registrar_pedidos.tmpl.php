@@ -38,7 +38,7 @@
           <form action="#" method="POST">
             <div id="div-articulos-pedidos">
               <div id="div-btn-sumar-articulo">
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-articulos">Sumar artículos <i class="fa fa-plus"></i></button>
+                <button class="btn btn-primary" id="btn-vis-modal" type="button" data-toggle="modal" data-target="#modal-articulos">Sumar artículos <i class="fa fa-plus"></i></button>
               </div>
               <table class="table table-responsive table-striped" id="tabla-articulos-pedidos">
                 <thead>
@@ -80,7 +80,7 @@
                     <form class="form-horizontal">
 
                         <input type="text" placeholder="Buscar artículo" id="input-filtro-articulo">
-                        <a class="btn btn-default" style="padding: 1%"><i class="fa fa-search"></i> Buscar</a>
+                        <a class="btn btn-default" id="btn-filtro-articulos" style="padding: 1%"><i class="fa fa-search"></i> Buscar</a>
 
                     </form>
                 </div>

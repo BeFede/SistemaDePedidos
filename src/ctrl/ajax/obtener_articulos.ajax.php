@@ -8,8 +8,6 @@
     $num_pag = (!empty($_POST['numero_pagina']) ) ? $_POST['numero_pagina'] : 1;
     $nombre_articulo = (isset($_POST['nombre_articulo']) && !empty($_POST['nombre_articulo'])) ? $_POST['nombre_articulo'] : NULL;
 
-
-
     $datos = array();
     $gestor_articulos = new GestorArticuloBD();
     $datos['articulos'] = $gestor_articulos->consultar_articulos($tam_pag, $num_pag, $nombre_articulo);

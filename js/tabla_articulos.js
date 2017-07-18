@@ -47,28 +47,41 @@ function crearCuerpo(datos, tabla){
 
     $.each(datos, function(i, item) {
         var tr = document.createElement('tr');
-        tr.id = datos[i];
-        $.each(item, function(j, text) {
-          if (j != 'id'){
-            var td = document.createElement('td');
-            var text = document.createTextNode(text);
-            if (j === 'stock') td.className = "hidden-xs";
-            td.appendChild(text);
-            tr.appendChild(td);
-          }
-        });
+        tr.id = datos[i].id;
+
+          $.each(item, function(j, text) {
+            if (j != 'id'){
+              var td = document.createElement('td');
+              var text = document.createTextNode(text);
+              if (j === 'stock') td.className = "hidden-xs";
+              td.appendChild(text);
+              tr.appendChild(td);
+            }
+            });
 
         var td_1 = document.createElement('td');
         var select = document.createElement('select');
         select.className = "form-control select-bulto-unidad";
-        var op1 = document.createElement('option');
-        var op2 = document.createElement('option');
-        var txt1 = document.createTextNode('Bulto');
-        var txt2 = document.createTextNode('Unidad');
-        op1.appendChild(txt1);
-        op2.appendChild(txt2);
-        select.appendChild(op1);
-        select.appendChild(op2);
+
+        console.log(item);
+        if (enArticulosPedidos(datos[i])){
+          select.disabled = true;
+          var op = document.createElement('option');
+          var txt = document.createTextNode(articulos_pedidos[i].empaque);
+          op.appendChild(txt);
+          select.appendChild(op);
+        }
+        else {
+          var op1 = document.createElement('option');
+          var op2 = document.createElement('option');
+          var txt1 = document.createTextNode('Bulto');
+          var txt2 = document.createTextNode('Unidad');
+          op1.appendChild(txt1);
+          op2.appendChild(txt2);
+          select.appendChild(op1);
+          select.appendChild(op2);
+        }
+
         td_1.appendChild(select);
         tr.appendChild(td_1);
 
@@ -84,7 +97,8 @@ function crearCuerpo(datos, tabla){
 
         var td_3 = document.createElement('td');
         i = document.createElement('i');
-        i.className = "fa fa-plus";
+        i.className = "fa fa-shopping-cart";
+
         i.ariaHidden = "true";
         btn = document.createElement('a');
         btn.className = "btn-sumar-articulo";
@@ -94,6 +108,7 @@ function crearCuerpo(datos, tabla){
         tr.appendChild(td_3);
 
         tbody.appendChild(tr);
+
 
     });
 
@@ -123,4 +138,14 @@ function crearPaginacion(cantPage, pagActiva){
   div.appendChild(ul);
 
   return div;
+}
+
+
+function enArticulosPedidos(articulo){
+  for (var i = 0; i < articulos_pedidos.length; i++) {
+    if (articulos_pedidos[i] === articulo.nombre){
+      return true;
+    }
+  }
+  return false;
 }

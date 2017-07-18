@@ -2,6 +2,7 @@ var montoTotal = parseFloat(0.0);
 var page_size = 2;
 var cabecera = ["Articulo", "Precio bulto", "Precio unidad", "Stock", "Empaque", "Cantidad"];
 var filtro_articulos = "";
+var articulos_pedidos = [];
 
 window.addEventListener('load', function(){
 
@@ -34,12 +35,18 @@ window.addEventListener('load', function(){
     if (parseInt(cantidad) > 0){
 
       articulo_dom.children('td')[5].childNodes[0].style.borderColor = "rgb(240,240,240)";
-      articulo_dom.remove();
+
+      $(this).css("cursor","default");
+      $(this).removeClass('btn-sumar-articulo');
+      $(articulo_dom).css("background-color","rgb(191,255,191");
+      $(articulo_dom).children('td')[4].childNodes[0].disabled = true;
+      articulo_dom.children('td')[5].childNodes[0].disabled = true;
+
 
       var nombre = articulo_dom.children('td')[0].childNodes[0].nodeValue;
       var precio_bulto =  articulo_dom.children('td')[1].childNodes[0].nodeValue;
       var precio_unidad = articulo_dom.children('td')[2].childNodes[0].nodeValue;
-      var empaque = articulo_dom.children('td')[3].childNodes[0].nodeValue;
+      var empaque = articulo_dom.children('td')[4].childNodes[0].nodeValue;
       var articulo = crearArticulo(nombre, precio_bulto, precio_unidad, empaque, cantidad);
       agregarArticulo(articulo);
     }
@@ -65,6 +72,8 @@ function removerFila(btn_trash){
 * nombre, stock, cantidad_pedida, precio
 */
 function agregarArticulo(articulo_pedido){
+  articulos_pedidos.push(articulo_pedido);
+
   var tabla_body = document.getElementById('tabla-articulos-pedidos-cuerpo');
   var art = crearFilaTabla(articulo_pedido);
   tabla_body.appendChild(art);
@@ -99,8 +108,6 @@ function actualizarTotal(monto){
   var divTotal = document.getElementById('lbl-monto-total').innerHTML = monto;
 }
 
-
-
 function obtenerArticulos(tamano_pagina, numero_pagina){
 
   $.ajax({
@@ -126,12 +133,3 @@ function obtenerArticulos(tamano_pagina, numero_pagina){
     });
 
 }
-
-
-var datos = [
-  {'nombre':'Pepas', 'precioBulto':'15,5', 'precioUnidad':'20','stock':'10'},
-  {'nombre':'Galletas', 'precioBulto':'25', 'precioUnidad':'55','stock':'3'},
-  {'nombre':'Alfajor', 'precioBulto':'15,5', 'precioUnidad':'15,5','stock':'2'}
-
-
-]

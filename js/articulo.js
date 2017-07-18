@@ -13,7 +13,8 @@ function crearArticulo(nombre, precio_bulto, precio_unidad, empaque, cantidad){
       'nombre':nombre,
       'precio':precio,
       'cantidad':cantidad,
-      'precioParcial':parcial
+      'precioParcial':parcial,
+      'empaque':empaque
     }
 
     return articulo;

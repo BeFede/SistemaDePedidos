@@ -48,6 +48,11 @@ function crearCuerpo(datos, tabla){
     $.each(datos, function(i, item) {
         var tr = document.createElement('tr');
         tr.id = datos[i].id;
+        var articulo_ped = enArticulosPedidos(item);
+
+        if (articulo_ped != null){
+          $(tr).css("background-color", "rgb(191,255,191)");
+        }
 
           $.each(item, function(j, text) {
             if (j != 'id'){
@@ -63,11 +68,10 @@ function crearCuerpo(datos, tabla){
         var select = document.createElement('select');
         select.className = "form-control select-bulto-unidad";
 
-        console.log(item);
-        if (enArticulosPedidos(datos[i])){
+        if (articulo_ped != null){
           select.disabled = true;
           var op = document.createElement('option');
-          var txt = document.createTextNode(articulos_pedidos[i].empaque);
+          var txt = document.createTextNode(articulo_ped.empaque);
           op.appendChild(txt);
           select.appendChild(op);
         }
@@ -90,14 +94,24 @@ function crearCuerpo(datos, tabla){
         input.type = "text";
         input.class = "form-control";
         //input.readOnly = "true";
-        input.value = "0"
-
+        if (articulo_ped != null){
+            input.value = articulo_ped.cantidad;
+            input.disabled = true;
+        }
+        else{
+          input.value = "0"
+        }
         td_2.appendChild(input);
         tr.appendChild(td_2);
 
         var td_3 = document.createElement('td');
         i = document.createElement('i');
-        i.className = "fa fa-shopping-cart";
+        if (articulo_ped != null){
+          i.className = "fa fa-check";
+        }
+        else {
+          i.className = "fa fa-shopping-cart";
+        }
 
         i.ariaHidden = "true";
         btn = document.createElement('a');
@@ -143,9 +157,10 @@ function crearPaginacion(cantPage, pagActiva){
 
 function enArticulosPedidos(articulo){
   for (var i = 0; i < articulos_pedidos.length; i++) {
-    if (articulos_pedidos[i] === articulo.nombre){
-      return true;
+
+    if (articulos_pedidos[i].nombre == articulo.nombre){
+      return articulos_pedidos[i];
     }
   }
-  return false;
+  return null;
 }

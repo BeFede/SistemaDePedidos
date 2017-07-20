@@ -47,6 +47,7 @@
                     <td>Precio</td>
                     <td>Cantidad</td>
                     <td>Parcial</td>
+                    <td>Empaque</td>
                     <td>Acción</td>
                   </tr>
                 </thead>

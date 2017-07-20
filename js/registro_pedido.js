@@ -1,12 +1,10 @@
 var montoTotal = parseFloat(0.0);
-var page_size = 2;
+var page_size = 3;
 var cabecera = ["Articulo", "Precio bulto", "Precio unidad", "Stock", "Empaque", "Cantidad"];
 var filtro_articulos = "";
 var articulos_pedidos = [];
 
 window.addEventListener('load', function(){
-
-  obtenerArticulos(page_size,1);
 
   $("body").on("click", ".page-link",function(){
         var page_number = parseInt($(this).html());
@@ -20,11 +18,14 @@ window.addEventListener('load', function(){
 
   $("body").on("click", "#btn-vis-modal",function(){
         filtro_articulos = "";
+        obtenerArticulos(page_size, 1);
   });
 
 
   $("#modal-articulos").on("click","#btn-filtro-articulos", function(){
     filtro_articulos = document.getElementById("input-filtro-articulo").value;
+    document.getElementById("input-filtro-articulo").value = "";
+
     obtenerArticulos(page_size, 1)
   });
 
@@ -42,17 +43,21 @@ window.addEventListener('load', function(){
       $(articulo_dom).children('td')[4].childNodes[0].disabled = true;
       articulo_dom.children('td')[5].childNodes[0].disabled = true;
 
+      $($(articulo_dom).children('td')[6].childNodes[0].childNodes[0]).removeClass('fa-shopping-cart');
+      $($(articulo_dom).children('td')[6].childNodes[0].childNodes[0]).addClass('fa-check');
+
 
       var nombre = articulo_dom.children('td')[0].childNodes[0].nodeValue;
       var precio_bulto =  articulo_dom.children('td')[1].childNodes[0].nodeValue;
       var precio_unidad = articulo_dom.children('td')[2].childNodes[0].nodeValue;
-      var empaque = articulo_dom.children('td')[4].childNodes[0].nodeValue;
+      var empaque = articulo_dom.children('td')[4].childNodes[0].value;
+
       var articulo = crearArticulo(nombre, precio_bulto, precio_unidad, empaque, cantidad);
       agregarArticulo(articulo);
     }
     else {
-
-      articulo_dom.children('td')[5].childNodes[0].style.borderColor = "red";
+      articulo_dom.children('td')[5].childNodes[0].style.borderColor = "rgb(255,120,120)";
+      //articulo_dom.children('td')[5].childNodes[0].style.backgroundColor = "rgb(255,150,150)";
     }
   });
 });
@@ -60,6 +65,15 @@ window.addEventListener('load', function(){
 
 //Remover fila de tabla de articulos pedidos
 function removerFila(btn_trash){
+  var nombre = btn_trash.parent().parent().parent().children('td')[0].childNodes[0].nodeValue;
+
+  for (var i = 0; i < articulos_pedidos.length; i++){
+
+    if (articulos_pedidos[0].nombre == nombre){
+      articulos_pedidos.splice(i, 1);
+    }
+  }
+
   var montoParcial = btn_trash.parent().parent().parent().children('td')[3].childNodes[0].nodeValue;
   montoTotal -= parseFloat(montoParcial);
   btn_trash.parent().parent().parent().remove();
@@ -82,6 +96,7 @@ function agregarArticulo(articulo_pedido){
 }
 
 function crearFilaTabla(datos){
+
   var fila = document.createElement('tr');
   $.each(datos, function(j, text) {
     var td = document.createElement('td');

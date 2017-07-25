@@ -46,13 +46,14 @@ window.addEventListener('load', function(){
       $($(articulo_dom).children('td')[6].childNodes[0].childNodes[0]).removeClass('fa-shopping-cart');
       $($(articulo_dom).children('td')[6].childNodes[0].childNodes[0]).addClass('fa-check');
 
-
+      var id = this.parentNode.parentNode.id;
+      console.log(id);
       var nombre = articulo_dom.children('td')[0].childNodes[0].nodeValue;
       var precio_bulto =  articulo_dom.children('td')[1].childNodes[0].nodeValue;
       var precio_unidad = articulo_dom.children('td')[2].childNodes[0].nodeValue;
       var empaque = articulo_dom.children('td')[4].childNodes[0].value;
 
-      var articulo = crearArticulo(nombre, precio_bulto, precio_unidad, empaque, cantidad);
+      var articulo = crearArticulo(id, nombre, precio_bulto, precio_unidad, empaque, cantidad);
       agregarArticulo(articulo);
     }
     else {
@@ -98,11 +99,21 @@ function agregarArticulo(articulo_pedido){
 function crearFilaTabla(datos){
 
   var fila = document.createElement('tr');
-  $.each(datos, function(j, text) {
-    var td = document.createElement('td');
-    var text = document.createTextNode(text);
-    td.appendChild(text);
-    fila.appendChild(td);
+
+  $.each(datos, function(j, txt) {
+    if (j != 'id'){
+      var td = document.createElement('td');
+      var text = document.createTextNode(txt);
+      td.appendChild(text);
+      fila.appendChild(td);
+}
+      var input_hidden = document.createElement('input');
+      input_hidden.type = "hidden";
+      input_hidden.name = j+"[]";
+      input_hidden.value = txt;
+      fila.appendChild(input_hidden);
+
+
   });
 
   var td = document.createElement('td');

@@ -105,17 +105,19 @@ function crearCuerpo(datos, tabla){
         tr.appendChild(td_2);
 
         var td_3 = document.createElement('td');
+        btn = document.createElement('a');
+        var clase = "";
         i = document.createElement('i');
         if (articulo_ped != null){
           i.className = "fa fa-check";
         }
         else {
           i.className = "fa fa-shopping-cart";
+          clase = "btn-sumar-articulo";
         }
 
+        btn.className = clase;
         i.ariaHidden = "true";
-        btn = document.createElement('a');
-        btn.className = "btn-sumar-articulo";
         btn.appendChild(i);
         td_3.appendChild(btn);
 

@@ -1,4 +1,5 @@
-function crearArticulo(nombre, precio_bulto, precio_unidad, empaque, cantidad){
+function crearArticulo(id, nombre, precio_bulto, precio_unidad, empaque, cantidad){
+
     var precio;
     var parcial;
 
@@ -12,6 +13,7 @@ function crearArticulo(nombre, precio_bulto, precio_unidad, empaque, cantidad){
     parcial = parseInt(cantidad) * precio;
 
     var articulo = {
+      'id':id,
       'nombre':nombre,
       'precio':precio,
       'cantidad':cantidad,

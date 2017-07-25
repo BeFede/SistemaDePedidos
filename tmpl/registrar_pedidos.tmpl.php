@@ -35,7 +35,7 @@
 
 
         <div class="col-xs-12 ">
-          <form action="#" method="POST">
+          <form action="<?php echo $WEB_PATH ?>src/ctrl/registro_pedido.ctrl.php" method="POST">
             <div id="div-articulos-pedidos">
               <div id="div-btn-sumar-articulo">
                 <button class="btn btn-primary" id="btn-vis-modal" type="button" data-toggle="modal" data-target="#modal-articulos">Sumar artículos <i class="fa fa-plus"></i></button>
